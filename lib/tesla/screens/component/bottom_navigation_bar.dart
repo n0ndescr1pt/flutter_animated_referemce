@@ -10,6 +10,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+        onTap: onTap,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,
         items: List.generate(

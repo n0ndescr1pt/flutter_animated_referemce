@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TeslaController extends ChangeNotifier {
+  int selectedTab = 0;
+
+  void changeCurrentTab(int index) {
+    selectedTab = index;
+    notifyListeners();
+  }
+
   bool isRightDoorLock = true;
   bool isLeftDoorLock = true;
   bool isTopDoorLock = true;
