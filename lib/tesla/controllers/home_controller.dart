@@ -45,7 +45,7 @@ class TeslaController extends ChangeNotifier {
   void showTyreController(int index) {
     if (selectedTab != 3 && index == 3) {
       Future.delayed(
-        Duration(milliseconds: 400),
+        Duration(milliseconds: 200),
         () {
           isShowTyre = true;
           notifyListeners();
