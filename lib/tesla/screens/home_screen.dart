@@ -224,9 +224,12 @@ class _TeslaScreenState extends State<TeslaScreen>
                       )),
                   Opacity(
                     opacity: _animationBattery.value,
-                    child: SvgPicture.asset(
-                      "lib/tesla/assets/icons/Battery.svg",
-                      width: constrains.maxWidth * 0.45,
+                    child: IgnorePointer(
+                      ignoring: teslaController.selectedTab != 1,
+                      child: SvgPicture.asset(
+                        "lib/tesla/assets/icons/Battery.svg",
+                        width: constrains.maxWidth * 0.45,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -235,7 +238,9 @@ class _TeslaScreenState extends State<TeslaScreen>
                     width: constrains.maxWidth,
                     child: Opacity(
                       opacity: _animationBatteryStatus.value,
-                      child: BatteryStatus(constrains: constrains),
+                      child: IgnorePointer(
+                          ignoring: teslaController.selectedTab != 1,
+                          child: BatteryStatus(constrains: constrains)),
                     ),
                   ),
                   Positioned(
@@ -244,41 +249,53 @@ class _TeslaScreenState extends State<TeslaScreen>
                       height: constrains.maxHeight,
                       child: Opacity(
                           opacity: _animationTempDetails.value,
-                          child: TempDetails(controller: teslaController))),
+                          child: IgnorePointer(
+                              ignoring: teslaController.selectedTab != 2,
+                              child:
+                                  TempDetails(controller: teslaController)))),
                   Positioned(
                     right: -180 * (1 - _animationCarGlow.value),
                     child: AnimatedSwitcher(
                       duration: Duration(milliseconds: 150),
                       child: teslaController.isCoolSelected
-                          ? Image.asset(
-                              "lib/tesla/assets/images/Cool_glow_2.png",
-                              key: UniqueKey(),
-                              width: 200,
+                          ? IgnorePointer(
+                              ignoring: teslaController.selectedTab != 2,
+                              child: Image.asset(
+                                "lib/tesla/assets/images/Cool_glow_2.png",
+                                key: UniqueKey(),
+                                width: 200,
+                              ),
                             )
-                          : Image.asset(
-                              "lib/tesla/assets/images/Hot_glow_4.png",
-                              key: UniqueKey(),
-                              width: 200,
+                          : IgnorePointer(
+                              ignoring: teslaController.selectedTab != 2,
+                              child: Image.asset(
+                                "lib/tesla/assets/images/Hot_glow_4.png",
+                                key: UniqueKey(),
+                                width: 200,
+                              ),
                             ),
                     ),
                   ),
                   if (teslaController.isShowTyre) ...tyres(constrains),
-                  GridView.builder(
-                      itemCount: 4,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: defaultPadding,
-                          crossAxisSpacing: defaultPadding,
-                          childAspectRatio:
-                              constrains.maxWidth / constrains.maxHeight),
-                      itemBuilder: (context, index) => ScaleTransition(
-                            scale: _tyreAnimations[index],
-                            child: TyrePsiCard(
-                              isBottomTwoTyre: index > 1,
-                              tyrePsi: demoPsiList[index],
-                            ),
-                          ))
+                  IgnorePointer(
+                    ignoring: teslaController.selectedTab != 3,
+                    child: GridView.builder(
+                        itemCount: 4,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: defaultPadding,
+                            crossAxisSpacing: defaultPadding,
+                            childAspectRatio:
+                                constrains.maxWidth / constrains.maxHeight),
+                        itemBuilder: (context, index) => ScaleTransition(
+                              scale: _tyreAnimations[index],
+                              child: TyrePsiCard(
+                                isBottomTwoTyre: index > 1,
+                                tyrePsi: demoPsiList[index],
+                              ),
+                            )),
+                  )
                 ],
               );
             })),
