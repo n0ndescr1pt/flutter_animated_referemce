@@ -34,7 +34,7 @@ class HomeHeader extends StatelessWidget {
           ),
           CircleAvatar(
             backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage("assets/images/profile.png"),
+            backgroundImage: AssetImage("lib/capysta/assets/images/profile.png"),
           )
         ],
       ),

@@ -115,6 +115,10 @@ class _TeslaScreenState extends State<TeslaScreen>
         ]),
         builder: (context, snapshot) {
           return Scaffold(
+            backgroundColor: Colors.black,
+            appBar: AppBar(
+              backgroundColor: Colors.black,
+            ),
             bottomNavigationBar: BottomNavBar(
               selectedTab: teslaController.selectedTab,
               onTap: (index) {
